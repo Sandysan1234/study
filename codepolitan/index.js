@@ -177,6 +177,53 @@
 // }
 
 
+// class Color {
+//   constructor(r,g,b,nama) {
+//     this.r =r;
+//     this.g =g;
+//     this.b = b;
+//     this.name = nama;
+//   }
+//   innerRGB(){
+//     const {r,g,b} = this
+//     return `${r}, ${g}, ${b}`
+//   }
+//   colorname(){
+//     console.log('the color is ' + this.name);
+    
+//   }
+
+//   //    awalnya gini
+//   // rgb(){
+//   //   const {r,g,b,}= this
+//   //   return `rgb(${r}, ${g}, ${b})`
+//   // }
+  
+//   //    jadi gini 
+//   rgb(){
+//     return `rgb(${this.innerRGB()})`
+//   }
+  
+//   //    awalnya begini
+//   // rgba(a= 1){
+//   //   const {r,g,b,}= this
+//   //   return `rgb(${r}, ${g}, ${b}, ${a})`
+
+//   // } 
+//   //    jadi gini
+
+//   rgba(a = 1.0){
+//     return `rgba(${this.innerRGB()}, ${a})`;
+//   } 
+
+//   hex(){
+//     const {r,g,b,} = this
+//     return `#` + ((1<<24) + (r<<16) + (g << 8) + b ).toString(16).slice(1)
+//   }
+// } 
+
+
+//      contoh lanjut Object dengan Class
 class Color {
   constructor(r,g,b,nama) {
     this.r =r;
@@ -184,17 +231,26 @@ class Color {
     this.b = b;
     this.name = nama;
   }
+  
   colorname(){
-    console.log('the color is' + this.name);
+    console.log('the color is ' + this.name);
     
   }
+
   rgb(){
     const {r,g,b,}= this
-    return `rgb${r}, ${g}, ${b}`
+    return `rgb(${r}, ${g}, ${b})`
   }
+  
+    rgba(a= 1){
+    const {r,g,b,}= this
+    return `rgb(${r}, ${g}, ${b}, ${a})`
 
-  rgba(a= 1){
+  } 
+  //    jadi gini
 
+  rgba(a = 1.0){
+    return `rgba(${this.innerRGB()}, ${a})`;
   } 
 
   hex(){
