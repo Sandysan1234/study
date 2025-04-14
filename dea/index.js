@@ -5,8 +5,15 @@ const bodyparser = require('body-parser')
 const db = require ("./connection")
 const response = require('./response')
 
+// artinya kita ambil format dari front end  yg ngirim ke kita dari post ke json
 app.use(bodyparser.json())
+//ex:
+app.post
 
+app.post('/login', (req, res) => {
+  console.log({requestFromOutside: req.body});
+  res.send('login berhasil')
+})
 app.get('/', (req, res) => {
   response(200, "API v1 ready to go", "Success",res)
 })
@@ -76,6 +83,6 @@ app.delete('/mahasiswa', (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
