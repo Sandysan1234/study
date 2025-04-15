@@ -2,16 +2,23 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => {
-  res.sendFile("./index.html", { root: __dirname });
+
+  
+  // res.render("./index.html", { root: __dirname });
+  res.render("index", { nama: "Rizky Sandy", title :'Halaman Home' });
 });
 
 app.get("/about", (req, res) => {
-  res.sendFile("./about.html", { root: __dirname });
+  // res.sendFile("./about.html", { root: __dirname });
+  res.render("about");
 });
 
 app.get("/contact", (req, res) => {
-  res.sendFile("./contact.html", { root: __dirname });
+  // res.sendFile("./contact.html", { root: __dirname });
+  res.render("contact");
 });
 
 app.get("/produk/:id", (req, res) => {
