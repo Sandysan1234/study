@@ -7,39 +7,49 @@ app.set("view engine", "ejs");
 app.use(expressLayouts)
 
 app.get("/", (req, res) => {
-  const barang = [
+  const mahasiswa = [
     {
-      nama: "minyak goreng",
-      qty: "25",
-      harga: 25000
+      nama: "Rizky Rahmahdian Sandy",
+      position: "25",
+      office: 25000,
+      age: 32,
+      startdate: 3000000,
     },
     {
       nama: "sabun cuci piring",
-      qty: 20,
-      harga: 250000
+      position: "25",
+      office: 25000,
+      age: 32,
+      startdate: '2002/09/20',
     },
     {
       nama: "mie goreng",
-      qty: "1 dus",
-      harga: 45000
+      position: "25",
+      office: 25000,
+      age: 32,
+      startdate: '2002/09/20',
     },
   ];
 
   res.render("index", { 
     nama: "Rizky Sandy", 
     title: "Halaman Home",
-    barang,
+    mahasiswa,
+    layout: 'layouts/main-layout'
    });
 });
 
 app.get("/about", (req, res) => {
-  // res.sendFile("./about.html", { root: __dirname });
-  res.render("about", {title:"Halaman About"});
+  res.render("about", {
+    layout: 'layouts/main-layout',
+    title:"Halaman About",
+  });
 });
 
 app.get("/contact", (req, res) => {
-  // res.sendFile("./contact.html", { root: __dirname });
-  res.render("contact", {title:"Halaman Contact"});
+  res.render("contact", {
+    layout: 'layouts/main-layout',
+    title:"Halaman Contact"});
 });
 
 app.get("/produk/:id", (req, res) => {
