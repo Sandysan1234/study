@@ -1,10 +1,12 @@
 const express = require("express");
-const expressLayouts = require('express-ejs-layouts');
+const expressLayouts = require("express-ejs-layouts");
 const app = express();
 const port = 3000;
 
 app.set("view engine", "ejs");
-app.use(expressLayouts)
+app.use(expressLayouts);
+app.use(express.static('public'));
+
 
 app.get("/", (req, res) => {
   const mahasiswa = [
@@ -20,36 +22,37 @@ app.get("/", (req, res) => {
       position: "25",
       office: 25000,
       age: 32,
-      startdate: '2002/09/20',
+      startdate: "2002/09/20",
     },
     {
       nama: "mie goreng",
       position: "25",
       office: 25000,
       age: 32,
-      startdate: '2002/09/20',
+      startdate: "2002/09/20",
     },
   ];
 
-  res.render("index", { 
-    nama: "Rizky Sandy", 
+  res.render("index", {
+    nama: "Rizky Sandy",
     title: "Halaman Home",
     mahasiswa,
-    layout: 'layouts/main-layout'
-   });
+    layout: "layouts/main-layout",
+  });
 });
 
 app.get("/about", (req, res) => {
   res.render("about", {
-    layout: 'layouts/main-layout',
-    title:"Halaman About",
+    layout: "layouts/main-layout",
+    title: "Halaman About",
   });
 });
 
 app.get("/contact", (req, res) => {
   res.render("contact", {
-    layout: 'layouts/main-layout',
-    title:"Halaman Contact"});
+    layout: "layouts/main-layout",
+    title: "Halaman Contact",
+  });
 });
 
 app.get("/produk/:id", (req, res) => {
