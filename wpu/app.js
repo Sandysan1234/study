@@ -7,6 +7,17 @@ app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.use(express.static('public'));
 
+//built in middleware
+app.use(express.static('public'))
+
+
+//application level Middleware
+
+app.use((req, res, next) => {
+  console.log('Time:', Date.now())
+  next()
+})
+
 
 app.get("/", (req, res) => {
   const mahasiswa = [
@@ -41,7 +52,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/about", (req, res) => {
+app.get("/about", (req, res,next) => {
   res.render("about", {
     layout: "layouts/main-layout",
     title: "Halaman About",
