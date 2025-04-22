@@ -13,11 +13,6 @@ app.use(express.static('public'))
 
 //application level Middleware
 
-app.use((req, res, next) => {
-  console.log('Time:', Date.now())
-  next()
-})
-
 
 app.get("/", (req, res) => {
   const mahasiswa = [
