@@ -1,19 +1,17 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const {loadContact} = require('./utils/contacts')
+const {loadContact, findContact} = require('./utils/contacts')
 
 const app = express();
 const port = 3000;
 
 app.set("view engine", "ejs");
 app.use(expressLayouts);
-app.use(express.static('public'));
 
 //built in middleware
 app.use(express.static('public'))
 
 
-//application level Middleware
 
 
 app.get("/", (req, res) => {
@@ -34,6 +32,20 @@ app.get("/", (req, res) => {
     },
     {
       nama: "mie goreng",
+      position: "25",
+      office: 25000,
+      age: 32,
+      startdate: "2002/09/20",
+    },
+    {
+      nama: "ayam goreng",
+      position: "25",
+      office: 25000,
+      age: 32,
+      startdate: "2002/09/20",
+    },
+    {
+      nama: "lele goreng",
       position: "25",
       office: 25000,
       age: 32,
@@ -62,6 +74,14 @@ app.get("/contact", (req, res) => {
     layout: "layouts/main-layout",
     title: "Halaman Contact",
     contacts,
+  });
+});
+app.get("/contact/:nama", (req, res) => {
+  const contact = findContact(req.params.nama);  
+  res.render("detail", {
+    layout: "layouts/main-layout",
+    title: "Halaman Detail Contact",
+    contact,
   });
 });
 
