@@ -1,6 +1,6 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const {loadContact, findContact} = require('./utils/contacts')
+const {loadContact, findContact, addContact} = require('./utils/contacts')
 
 const app = express();
 const port = 3000;
@@ -10,6 +10,7 @@ app.use(expressLayouts);
 
 //built in middleware
 app.use(express.static('public'))
+app.use(express.urlencoded({extended:true}));
 
 
 
@@ -76,6 +77,23 @@ app.get("/contact", (req, res) => {
     contacts,
   });
 });
+
+//halaman form tambah data contact
+app.get("/contact/add", (req, res) => {
+  res.render("add-contact",{
+    title:"Form Tambah Data Contact",
+    layout: "layouts/main-layout",
+  })
+})
+
+//proses data contact
+app.post("/contact", (req, res) => {
+  addContact(req.body);
+  res.redirect("/contact")
+});
+
+
+//halaman  detail data contact
 app.get("/contact/:nama", (req, res) => {
   const contact = findContact(req.params.nama);  
   res.render("detail", {
@@ -85,9 +103,26 @@ app.get("/contact/:nama", (req, res) => {
   });
 });
 
-app.get("/produk/:id", (req, res) => {
-  res.send(`product id : ${req.params.id} <br> category : ${req.query.cat}`);
-});
+
+app.get("/produk",(req,res)=>{
+  const products = [
+    {"nama":"sepatu",
+      "qty": "11",
+    },
+    {"nama":"sikat gigi",
+      "qty": "12",
+    },
+    {"nama":"pasta gigi",
+      "qty": "12",
+    }
+  ]
+  res.render("product",{
+    layout: "layouts/main-layout",
+    title : "halaman produk",
+    products,
+  })
+})
+
 
 app.use("/", (req, res) => {
   res.status(404);

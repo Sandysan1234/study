@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Daftar Produk</h2>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.forEach(p => { %>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><%= p.nama %></td>
+                      <td><%= p.qty %></td>
+                      <td><a href="/" class="btn btn-success badge rounded-pill">detail</a></td>
+                    </tr>
+                    <tr>
+                  <% }) %>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
