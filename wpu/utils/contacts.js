@@ -39,5 +39,11 @@ const addContact= (contact) =>{
     saveContacts(contacts)
 }
 
+// cek nama yang duplikat
 
-module.exports = {loadContact, findContact, addContact};
+const cekDuplikat = (nama) =>{
+    const contacts = loadContact();
+    return contacts.find((contact)=> contact.nama === nama)
+}
+
+module.exports = {loadContact, findContact, addContact, cekDuplikat};
