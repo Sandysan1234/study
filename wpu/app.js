@@ -1,9 +1,10 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const {loadContact, findContact, addContact, cekDuplikat} = require('./utils/contacts')
-
-const { body, validationResult, check } = require('express-validator');
-
+const { body, validationResult, check, cookie } = require('express-validator');
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const flash = require ("connect-flash")
 
 const app = express();
 const port = 3000;
@@ -15,7 +16,15 @@ app.use(expressLayouts);
 app.use(express.static('public'))
 app.use(express.urlencoded({extended:true}));
 
-
+//konfigurasi flash
+app.use(cookieParser('secret'))
+app.use(session({
+  cookie:{maxAge:6000},
+  secret:"secret",
+  resave: true,
+  saveUninitialized:true,
+}))
+app.use(flash())
 
 
 app.get("/", (req, res) => {
@@ -78,6 +87,7 @@ app.get("/contact", (req, res) => {
     layout: "layouts/main-layout",
     title: "Halaman Contact",
     contacts,
+    msg : req.flash("msg"),
   });
 });
 
@@ -103,10 +113,18 @@ app.post("/contact", [
 ], (req, res) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
-    return res.status(400).json({errors:errors.array() })
+    // return res.status(400).json({errors:errors.array() })
+    res.render("add-contact",{
+      title: "form tambah data Contact",
+      layout: "layouts/main-layout",
+      errors: errors.array()
+    })
+  }else{
+    addContact(req.body);
+    //kirim flash message
+    req.flash('msg', "Data Contact berhasil ditambahkan")
+    res.redirect("/contact")
   }
-  // addContact(req.body);
-  // res.redirect("/contact")
 });
 
 
