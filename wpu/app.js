@@ -1,6 +1,6 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
-const {loadContact, findContact, addContact, cekDuplikat} = require('./utils/contacts')
+const {loadContact, findContact, addContact, cekDuplikat, deleteContact} = require('./utils/contacts')
 const { body, validationResult, check, cookie } = require('express-validator');
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -127,6 +127,34 @@ app.post("/contact", [
   }
 });
 
+//untuk delete contact
+app.get("/contact/delete/:nama", (req, res)=>{
+  const contact = findContact(req.params.nama);
+  if (!contact) {
+    res.status(404)
+    res.send("404haloo")
+  }else{
+    deleteContact(req.params.nama)
+    req.flash('msg', "Data Contact berhasil dihapus!")
+    res.redirect("/contact")
+  }
+})
+
+// halaman form ubah data
+app.get("/contact/edit/:nama", (req, res) => {
+  const contact = findContact(req.params.nama)
+    res.render("edit-contact",{
+    title:"Form Edit Data Contact",
+    layout: "layouts/main-layout",
+    contact
+  })
+})
+
+// proses ubah data
+app.post("/contact/update", (req,res)=>{
+  
+})
+
 
 //halaman  detail data contact
 app.get("/contact/:nama", (req, res) => {
@@ -139,10 +167,18 @@ app.get("/contact/:nama", (req, res) => {
 });
 
 
+
+
 app.get("/produk",(req,res)=>{
   const products = [
     {"nama":"sepatu",
       "qty": "11",
+    },
+    {"nama":"sikat gigi",
+      "qty": "12",
+    },
+    {"nama":"sikat gigi",
+      "qty": "12",
     },
     {"nama":"sikat gigi",
       "qty": "12",

@@ -12,12 +12,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% products.forEach(p => { %>
+                  <% products.forEach((p,i) => { i++ %>
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row"><%= i++ %></th>
                       <td><%= p.nama %></td>
                       <td><%= p.qty %></td>
-                      <td><a href="/" class="btn btn-success badge rounded-pill">detail</a></td>
+                      <td><a href="/" class="btn btn-success badge rounded-pill"><i class="bi bi-info-circle"></i> detail</a></td>
                     </tr>
                     <tr>
                   <% }) %>
